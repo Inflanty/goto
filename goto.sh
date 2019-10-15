@@ -4,6 +4,7 @@
 howtogoto(){
 echo "Usage: goto [OPTION]"
 echo "Usage: goto [OPTION] -d DIRECTORY"
+echo ""
 echo "goto : Go to working directory or/and the directories under."
 echo ""
 echo "Available arguments:"
@@ -21,7 +22,8 @@ echo "@janglo :: 111019"
 #finction CALL()
 call(){
 OPTIND=1
-while getopts "wd:th" flag; do
+
+while getopts "wd:thv" flag; do
 	case $flag in
 		w)
 			cd /mnt/c/work/janglo
@@ -39,13 +41,15 @@ while getopts "wd:th" flag; do
 			echo "goto ver. 0.1-Beta"
 			;;
 		*)
-			howtogoto
+			echo "goto - Usage: goto flags -w -t -v (-d dirpath) -h for help"
 			;;
 	esac
 done
 }
 
-if [ ! getopts "wd:th" flags ]; then
+OPTIND=1
+if ( ! getopts "wd:thv" flagsX ); then
+	echo "$flagsX"
 	echo "goto - Usage: goto flags -w -t -v (-d dirpath) -h for help"
 else
 	call "$@"
