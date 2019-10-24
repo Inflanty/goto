@@ -14,16 +14,29 @@ echo "  -d		goto specific directory under working dir"
 echo "  -t		show tree view of folder"
 echo "  -l		show text forder schedule"
 echo "  -v		version : show the tool version"
+echo "	-f		open file : opne specific file with vim"
 echo ""
 echo "goto ver. 0.1-Beta"
 echo "@janglo :: 111019"
 }
 
-#finction CALL()
+#function OPEN()
+open(){
+	fileLoc=$( find . -name $1 )
+	if [ "$fileLoc" == "" ]; then
+		echo 'Could not find specified file, sorry...'
+	elif [[ "$fileLoc" == *$'\n'* ]]; then
+		echo -e "There is more then one file named: $1, specify location!\nAvailable options:\n$fileLoc"
+	else	
+		vim $fileLoc
+	fi
+}
+
+#function CALL()
 call(){
 OPTIND=1
 
-while getopts "wd:thv" flag; do
+while getopts "wd:thvf:" flag; do
 	case $flag in
 		w)
 			cd /mnt/c/work/janglo
@@ -40,6 +53,9 @@ while getopts "wd:thv" flag; do
 		v)	
 			echo "goto ver. 0.1-Beta"
 			;;
+		f)
+			open "$OPTARG"
+			;;
 		*)
 			echo "goto - Usage: goto flags -w -t -v (-d dirpath) -h for help"
 			;;
@@ -48,9 +64,5 @@ done
 }
 
 OPTIND=1
-if ( ! getopts "wd:thv" flagsX ); then
-	echo "$flagsX"
-	echo "goto - Usage: goto flags -w -t -v (-d dirpath) -h for help"
-else
-	call "$@"
-fi
+
+call "$@"
