@@ -2,8 +2,16 @@
 goto tool for linux
 
 ### TODO
-Change -h response, more info
-Add installation script (installation from working directory)
+
+* Change -h response, more info and -f flag
+
+* New flag :
+```
+goto -f "filename"
+```
+- Two or more files exception add
+
+* Add installation script (installation from working directory)
 
 Use this for self delete:
 ```
