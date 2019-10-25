@@ -24,3 +24,7 @@ function finish {
 
 trap finish EXIT
 ```
+
+#### To add
+
+goto -g option : goto specific git repository ?
