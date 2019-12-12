@@ -4,6 +4,7 @@
 howtogoto(){
 echo "Usage: goto [OPTION]"
 echo "Usage: goto [OPTION] -d DIRECTORY"
+echo "Usage: goto [OPTION] -c [VBG PROJECT]"
 echo ""
 echo "goto : Go to working directory or/and the directories under."
 echo ""
@@ -11,15 +12,19 @@ echo "Available arguments:"
 echo "  -h		help : how to use goto"
 echo "  -w		goto working directory "
 echo "  -d		goto specific directory under working dir"
+echo "	-c		open docker Container of only particular VBG project"
+echo "			WARNING: this is only temporary option"
 echo "  -t		show tree view of folder"
 echo "  -l		show text forder schedule"
 echo "  -v		version : show the tool version"
 echo "	-f		open file : opne specific file with vim"
+echo "			WARNING: needs work"
 echo ""
 echo "goto ver. 0.1-Beta"
 echo "@janglo :: 111019"
 }
 
+# TODO: intelligent search trough the libraries
 #function OPEN()
 open(){
 	fileLoc=$( find . -name $1 )
@@ -36,13 +41,17 @@ open(){
 call(){
 OPTIND=1
 
-while getopts "wd:thvf:" flag; do
+while getopts "wd:c:thvf:" flag; do
 	case $flag in
 		w)
 			cd /mnt/c/work/janglo
 			;;
 		d)
 			cd /mnt/c/work/janglo/$OPTARG
+			;;
+		c)	
+			cd /mnt/c/work/janglo/VBG/docker
+			powershell.exe -File "rundocker.ps1" $OPTARG
 			;;
 		t)
 			tree -d -L 1

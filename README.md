@@ -5,11 +5,19 @@ goto tool for linux
 
 * Change -h response, more info and -f flag
 
-* New flag :
+#### New flags :
+
+##### Open file by specified name
 ```
 goto -f "filename"
 ```
-- Two or more files exception add
+- More intelligent way of searching (Include paths to libraries, SDKs etc...)
+
+##### Open docker container by specified SW part number name - temporary only - needs work for a long run
+```
+goto -c "SW part number"
+```
+- Find way to be more env independent
 
 * Add installation script (installation from working directory)
 
