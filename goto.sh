@@ -51,7 +51,11 @@ while getopts "wd:c:thvf:" flag; do
 			;;
 		c)	
 			cd /mnt/c/work/janglo/VBG/docker
+			#Make sure that Powershell will not chenge the fonts
+			oemcp=$(reg.exe query "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Nls\\CodePage" /v OEMCP 2>&1 | sed -n 3p | sed -e 's|\r||g' | grep -o '[[:digit:]]*')
+			chcp.com $oemcp
 			powershell.exe -File "rundocker.ps1" $OPTARG
+			chcp.com 65001
 			;;
 		t)
 			tree -d -L 1
